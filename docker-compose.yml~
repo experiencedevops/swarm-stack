@@ -1,0 +1,51 @@
+version: '3.1'
+
+services:
+
+  microservice:
+    image: experiencedevops/customerservice:latest 
+    ports:
+      - "9090:9090"
+    networks:
+      - all
+    deploy:
+      replicas: 1
+      restart_policy:
+	condition: on-failure
+
+  react:
+    image: experiencedevops/reactapp:3613e2d
+    ports:
+      - "9092:80"
+    environment:
+      - BASE_URL=/run/secrets/base-url
+    secrets:
+      - base-url
+    networks:
+      - all
+    deploy:
+      replicas: 3
+      restart_policy:
+	condition: on-failure
+
+  angular:
+    image: experiencedevops/selfservice:latest
+    ports:
+      - "80:80"
+    environment:
+      - API_URL=/run/secrets/base-url
+    secrets:
+      - base-url
+    networks:
+      - all
+    deploy:
+      replicas: 3
+      restart_policy:
+	condition: on-failure
+   
+secrets:
+  base-url:
+    external: true
+
+networks:
+  all:
