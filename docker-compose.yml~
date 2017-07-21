@@ -10,11 +10,9 @@ services:
       - all
     deploy:
       replicas: 1
-      restart_policy:
-	condition: on-failure
 
   react:
-    image: experiencedevops/reactapp:3613e2d
+    image: experiencedevops/reactapp:79071df
     ports:
       - "9092:80"
     environment:
@@ -24,12 +22,10 @@ services:
     networks:
       - all
     deploy:
-      replicas: 3
-      restart_policy:
-	condition: on-failure
+      replicas: 1
 
   angular:
-    image: experiencedevops/selfservice:latest
+    image: experiencedevops/selfserviceapp:latest
     ports:
       - "80:80"
     environment:
@@ -39,13 +35,11 @@ services:
     networks:
       - all
     deploy:
-      replicas: 3
-      restart_policy:
-	condition: on-failure
+      replicas: 1
    
 secrets:
   base-url:
-    external: true
+    file: ./apiurl.txt
 
 networks:
   all:
