@@ -22,7 +22,7 @@ services:
     networks:
       - all
     deploy:
-      replicas: 1
+      replicas: 3
 
   angular:
     image: experiencedevops/selfserviceapp:latest
@@ -35,7 +35,7 @@ services:
     networks:
       - all
     deploy:
-      replicas: 1
+      replicas: 3
    
 secrets:
   base-url:
